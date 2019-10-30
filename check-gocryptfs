@@ -12,7 +12,6 @@ export PATH=$PATH:/usr/local/bin
 # Try to keep the machine usable while the tests are running.
 renice 19 $$ > /dev/null
 
-gocryptfs -version
 echo "fuse-xfstests $(git rev-parse --abbrev-ref HEAD)/$(git rev-parse --short HEAD)"
 date -u
 echo
@@ -23,10 +22,10 @@ R=/var/tmp/fuse-xfstests/$MYNAME
 export TEST_DEV=$R/testdev
 export TEST_DIR=$R/testdir
 
-export SCRATCH_DEV=$R/scratchdev
-export SCRATCH_MNT=$R/scratchdir
+#export SCRATCH_DEV=$R/scratchdev
+#export SCRATCH_MNT=$R/scratchdir
 
-mkdir -p $TEST_DEV $TEST_DIR $SCRATCH_DEV $SCRATCH_MNT || exit
+mkdir -p $TEST_DEV $TEST_DIR || exit
 
 if [[ $MYNAME == check-gocryptfs ]]; then
 	export FSTYP=fuse.gocryptfs
@@ -35,6 +34,8 @@ if [[ $MYNAME == check-gocryptfs ]]; then
 	fi
 elif [[ $MYNAME == check-loopback ]]; then
 	export FSTYP=fuse.loopback
+elif [[ $MYNAME == check-fleetfs ]]; then
+	export FSTYP=fuse.fleetfs
 else
 	echo "unknown mode of operation: $MYNAME"
 	exit 1
@@ -44,4 +45,9 @@ SECONDS=0
 ./check $*
 RET=$?
 echo "Runtime was $SECONDS seconds, exit code $RET"
-echo $RET
+
+# Clean up mounts
+umount ${R}/testdir > /dev/null 2>&1
+umount ${R}/scratchdir > /dev/null 2>&1
+
+exit $RET
