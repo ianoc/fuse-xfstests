@@ -2636,7 +2636,7 @@ _check_test_fs()
 	_check_gocryptfs_filesystem $TEST_DEV
 	;;
     fuse.fleetfs)
-	_check_fleetfs_filesystem $TEST_DEV
+	_check_fleetfs_filesystem $TEST_SERVER
 	;;
 	fuse.loopback)
 	# no way to check consistency for loopback
@@ -2692,7 +2692,7 @@ _check_scratch_fs()
 	_check_gocryptfs_filesystem $device
 	;;
     fuse.fleetfs)
-	_check_fleetfs_filesystem $device
+	_check_fleetfs_filesystem $SCRATCH_SERVER
 	;;
 	fuse.loopback)
 	# Don't know how to check a fuse.loopback filesystem, yet.

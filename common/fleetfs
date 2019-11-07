@@ -25,5 +25,6 @@ _fleetfs_mount()
 
 _check_fleetfs_filesystem()
 {
-	echo "TODO: filesystem check"
+    local server=$1
+    fleetfs --server-ip-port "${server}" --fsck > /dev/null 2>&1
 }
