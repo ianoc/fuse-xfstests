@@ -22,10 +22,10 @@ R=/var/tmp/fuse-xfstests/$MYNAME
 export TEST_DEV=$R/testdev
 export TEST_DIR=$R/testdir
 
-#export SCRATCH_DEV=$R/scratchdev
-#export SCRATCH_MNT=$R/scratchdir
+export SCRATCH_DEV=$R/scratchdev
+export SCRATCH_MNT=$R/scratchdir
 
-mkdir -p $TEST_DEV $TEST_DIR || exit
+mkdir -p $TEST_DEV $TEST_DIR $SCRATCH_DEV $SCRATCH_MNT || exit
 
 if [[ $MYNAME == check-gocryptfs ]]; then
 	export FSTYP=fuse.gocryptfs
