@@ -366,6 +366,7 @@ _scratch_unmount()
 		;;
 	btrfs|fuse.gocryptfs|fuse.loopback|fuse.fleetfs|fuse.fuser)
 		$UMOUNT_PROG $SCRATCH_MNT
+		sleep 1
 		;;
 	*)
 		$UMOUNT_PROG $SCRATCH_DEV
@@ -463,6 +464,7 @@ _test_unmount()
 		_overlay_test_unmount
 	elif [ "$FSTYP" == "fuse.gocryptfs" -o "$FSTYP" == "fuse.loopback" -o "$FSTYP" == "fuse.fleetfs" -o "$FSTYP" == "fuse.fuser" ]; then
 		$UMOUNT_PROG $TEST_DIR
+		sleep 1
 	else
 		$UMOUNT_PROG $TEST_DEV
 	fi
